@@ -1,0 +1,27 @@
+name: Readwise to Slack
+
+on:
+  schedule:
+    - cron: "0 9 */2 * *"  # Runs every 2 days at 9 AM UTC
+  workflow_dispatch:  # Allows manual execution
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run script
+        env:
+          READWISE_TOKEN: ${{ secrets.READWISE_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: python readwise_to_slack.py
