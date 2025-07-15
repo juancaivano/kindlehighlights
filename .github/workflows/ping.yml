@@ -1,0 +1,11 @@
+name: Keep Repository Active
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'  # Runs every Monday at 00:00 UTC
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Ping! Keeping the repository active."
